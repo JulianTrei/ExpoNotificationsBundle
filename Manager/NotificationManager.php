@@ -54,11 +54,11 @@ class NotificationManager
      * @return array
      */
     public function sendNotification(
-        string $message,
-        string $token,
-        string $title = '',
-        array $data = null
-    ): NotificationContentModel
+        $message,
+        $token,
+        $title = '',
+        $data = null
+    )
     {
         $notificationContentModel = new NotificationContentModel();
         $notificationContentModel
@@ -102,11 +102,11 @@ class NotificationManager
      * @return array
      */
     public function sendNotifications(
-        array $messages,
-        array $tokens,
-        array $titles = [],
-        array $data = []
-    ): array
+        $messages,
+        $tokens,
+        $titles = [],
+        $data = []
+    )
     {
         if (count($messages) !== count($tokens)) {
             return [];
@@ -128,7 +128,7 @@ class NotificationManager
      *
      * @return bool
      */
-    private function validateMessage(string $message): bool
+    private function validateMessage($message)
     {
         if (strlen($message) === 0) {
             return false;
@@ -144,8 +144,10 @@ class NotificationManager
      *
      * @return array
      */
-    private function sendNotificationHttp(NotificationContentModel $notificationContentModel): array
+    private function sendNotificationHttp(NotificationContentModel $notificationContentModel)
     {
+        $response = null;
+
         $headers = [
             'accept' => 'application/json',
             'accept-encoding' => 'gzip, deflate',
@@ -217,8 +219,10 @@ class NotificationManager
      *
      * @return array
      */
-    private function sendNotificationsHttp(array $notificationContentModels): array
+    public function sendNotificationsHttp($notificationContentModels)
     {
+        $response = null;
+
         $headers = [
             'accept' => 'application/json',
             'accept-encoding' => 'gzip, deflate',
@@ -270,6 +274,9 @@ class NotificationManager
             ];
         }
 
+
+
+
         if(!$response) {
             $exceptionResponseArray = [];
             $i = 0;
@@ -297,11 +304,11 @@ class NotificationManager
      * @return array
      */
     private function createNotificationContentModels(
-        array $tokens,
-        array $messages,
-        array $titles = [],
-        array $data = []
-    ): array
+        $tokens,
+        $messages,
+        $titles = [],
+        $data = []
+    )
     {
         $notificationContentModels = [];
 
@@ -343,10 +350,10 @@ class NotificationManager
      *
      * @return array
      */
-    private function handleHttpResponse(
-        array $httpResponse,
-        array $notificationContentModels
-    ): array
+    public function handleHttpResponse(
+        $httpResponse,
+        $notificationContentModels
+    )
     {
         foreach ($httpResponse as $key => $httpResponseDetails) {
             // Being pessimistic here.
@@ -384,7 +391,7 @@ class NotificationManager
      *
      * @return array
      */
-    private function createRequestBody(array $notificationContentModels): array
+    private function createRequestBody($notificationContentModels)
     {
         $requestData = [];
 
