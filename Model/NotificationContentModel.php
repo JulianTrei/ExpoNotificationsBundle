@@ -77,7 +77,8 @@ class NotificationContentModel
      */
     public function setTo($token)
     {
-        $this->to = self::EXPO_TOKEN_PREFIX . $token . self::EXPO_TOKEN_SUFFIX;
+        //$this->to = self::EXPO_TOKEN_PREFIX . $token . self::EXPO_TOKEN_SUFFIX;
+        $this->to = $token;
 
         return $this;
     }
